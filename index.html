@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Control de Bonos</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Control de Bonos</h1>
+    <form id="bonoForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br><br>
+
+        <label for="departamento">Departamento:</label>
+        <input type="text" id="departamento" required><br><br>
+
+        <label for="sueldoDiario">Sueldo Diario:</label>
+        <input type="number" id="sueldoDiario" required><br><br>
+
+        <label for="antiguedad">Antigüedad en años:</label>
+        <input type="number" id="antiguedad" required><br><br>
+
+        <label for="diasTrabajados">Días Trabajados:</label>
+        <input type="number" id="diasTrabajados" required><br><br>
+
+        <input type="submit" value="Calcular Bono">
+    </form>
+
+    <table id="resultado">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Departamento</th>
+                <th>Sueldo Diario</th>
+                <th>Antigüedad</th>
+                <th>Días Trabajados</th>
+                <th>Subtotal</th>
+                <th>Bono</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('bonoForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const departamento = document.getElementById('departamento').value;
+            const sueldoDiario = parseFloat(document.getElementById('sueldoDiario').value);
+            const antiguedad = parseInt(document.getElementById('antiguedad').value);
+            const diasTrabajados = parseInt(document.getElementById('diasTrabajados').value);
+
+            let subtotal = sueldoDiario * diasTrabajados;
+            let bono = 0;
+
+            if (antiguedad < 15) {
+                bono = subtotal * 0.15;
+            } else {
+                bono = subtotal * 0.30;
+            }
+            total = bono + subtotal;
+            const table = document.querySelector('table tbody');
+            
+            // Elimina las filas antiguas
+            const rows = table.getElementsByTagName('tr');
+            while (rows.length >= 1) {
+                table.deleteRow(0);
+            }
+
+            const newRow = table.insertRow(-1);
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            const cell6 = newRow.insertCell(5);
+            const cell7 = newRow.insertCell(6);
+            const cell8 = newRow.insertCell(7);
+
+            cell1.innerHTML = nombre;
+            cell2.innerHTML = departamento;
+            cell3.innerHTML = sueldoDiario;
+            cell4.innerHTML = antiguedad;
+            cell5.innerHTML = diasTrabajados;
+            cell6.innerHTML = subtotal;
+            cell7.innerHTML = bono;
+            cell8.innerHTML = total;
+
+            document.getElementById('nombre').value = '';
+            document.getElementById('departamento').value = '';
+            document.getElementById('sueldoDiario').value = '';
+            document.getElementById('antiguedad').value = '';
+            document.getElementById('diasTrabajados').value = '';
+        });
+    </script>
+</body>
+</html>
